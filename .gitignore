@@ -4,8 +4,7 @@ svn-prop.tmp
 static/dist/
 static/index.html
 static/chat.html
-!static/lib/
-static/lib/*
 !static/lib/*.js
+static/lib/*
 lib/
 chat-server/node_modules/
