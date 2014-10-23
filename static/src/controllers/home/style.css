@@ -1,0 +1,59 @@
+.sidebar {
+  position: fixed;
+  top: 90px;
+  bottom: 0;
+  left: 0;
+  z-index: 1000;
+  display: block;
+  width: 250px;
+  /*padding: 20px;*/
+  overflow-x: hidden;
+  overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
+  /*background-color: #f5f5f5;*/
+  /*border: 1px solid #eee;*/
+}
+
+.main {
+  padding-left: 260px;
+  padding-top: 40px;
+}
+
+#org-menu-btn-group {
+  padding-top: 10px;
+  margin-bottom: 15px;
+  position: fixed;
+  z-index: 999;
+  background-color: white;
+  height: 40px;
+  width: 100%;
+}
+
+#org-menu-btn-group .btn {
+  padding: 0;
+}
+
+#org-menu-btn-group .left {
+  float: left;
+  width: 250px;
+  padding-left: 15px;
+}
+
+#org-menu-btn-group .right {
+  margin-left: 260px;
+}
+
+#cc-tree .list-group-item {
+  border: 0;
+}
+
+.account-locked {
+  color: red;
+}
+
+table>thead {
+  background-color: #eee;
+}
+
+tbody>tr>td {
+  vertical-align: middle!important;
+}

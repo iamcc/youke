@@ -1,0 +1,54 @@
+<div id="org-menu-btn-group" class="row" ng-if="myInfo">
+  <div class="left">
+    <button class="btn btn-link" ng-click="showOrgModal('添加')">添加组织</button>
+    <button class="btn btn-link" ng-click="showOrgModal('修改')">修改组织</button>
+    <button class="btn btn-link" ng-click="delOrg()">删除组织</button>
+  </div>
+  <div class="right">
+    <button class="btn btn-link" ng-click="showSalesModal('添加')">添加员工</button>
+    <button class="btn btn-link" ng-click="resetPassword()" ng-disabled="checkedSales()">重置密码</button>
+    <button class="btn btn-link" ng-click="blockSales()" ng-disabled="checkedSales()">停用帐号</button>
+    <button class="btn btn-link" ng-click="delSales()" ng-disabled="checkedSales()">删除员工</button>
+    <a>|</a>
+    <button class="btn btn-link" ng-click="showRoleListModal()">角色管理</button>
+  </div>
+</div>
+
+<div class="row" ng-if="myInfo">
+  <div class="sidebar">
+    <cc-tree id="cc-tree" data="tree" on-select="selectNode"></cc-tree>
+  </div>
+  <div class="col-xs-12 main">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>
+            <input type="checkbox" ng-model="checkedAll" ng-click="checkAll()">
+          </th>
+          <th>头像</th>
+          <th>姓名</th>
+          <th>帐号</th>
+          <th>组织</th>
+          <th>角色</th>
+          <th>操作</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="sales in orgSaleses">
+          <td><input type="checkbox" ng-model="sales.checked"></td>
+          <td><img ng-src="{{ sales.avatar }}" alt="" width="64"></td>
+          <td>{{ sales.name }}</td>
+          <td>{{ sales.mobile }} <span class="account-locked" ng-if="sales.status == 0">[已停用]</span></td>
+          <td>{{ sales.org.name }}</td>
+          <td>{{ sales.role.name }}</td>
+          <td>
+            <button class="btn btn-link" ng-click="activeSales(sales)" ng-if="sales.status == 0">启用</button>
+            <button class="btn btn-link" ng-click="showSalesModal('编辑', sales)" ng-if="sales.status == 1">编辑</button>
+            <button class="btn btn-link" ng-click="showClients(sales)" ng-if="sales.status == 1">查看客户</button>
+            <button class="btn btn-link" ng-click="handoverClients(sales)" ng-if="sales.status == 1">客户交接</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

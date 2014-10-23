@@ -1,0 +1,11 @@
+node_modules/
+sftp-config.json
+svn-prop.tmp
+static/dist/
+static/index.html
+static/chat.html
+!static/lib/
+static/lib/*
+!static/lib/*.js
+lib/
+chat-server/node_modules/

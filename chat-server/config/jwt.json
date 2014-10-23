@@ -1,0 +1,10 @@
+{
+  "development": {
+    "key": "dev.youke.aimapp.net.secret",
+    "exp": 60
+  },
+  "production": {
+    "key": "dev.youke.aimapp.net.secret",
+    "exp": 60
+  }
+}

@@ -1,0 +1,41 @@
+<div class="modal-header">
+  <button class="close" ng-click="cancel()">&times;</button>
+  <h3 class="modal-title">{{ sales.name }} 的客户</h3>
+</div>
+<div class="modal-body">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <button class="btn btn-primary" ng-click="handoverClients()">交接</button>
+    </div>
+    <table class="table">
+      <thead>
+        <tr>
+          <th></th>
+          <th>头像</th>
+          <th>姓名</th>
+          <th>性别</th>
+          <th>电话</th>
+          <th>状态</th>
+          <th>操作</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="client in clients.data">
+          <td><input type="checkbox" ng-model="client.checked"></td>
+          <td><img ng-src="{{ client.FaceImageUrl }}" width="80"></td>
+          <td>{{ client.Name || client.NickName }}</td>
+          <td>{{ (sex = client.RealSex || client.Sex) == 1 ? '男' : ( sex == 2 ? '女' : '未知') }}</td>
+          <td>{{ client.Mobile }}</td>
+          <td>{{ client.Status }}</td>
+          <td>
+            <button class="btn btn-link" ng-click="showFollowUpRecords(client)">跟进记录</button>
+            <button class="btn btn-link" ng-click="showChatMessages(client)">聊天记录</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="panel-footer">
+      <pagination total-items="clients.total" ng-model="opts.page" items-per-page="opts.num" max-size="'15'" ng-change="pageChanged()"></pagination>
+    </div>
+  </div>
+</div>

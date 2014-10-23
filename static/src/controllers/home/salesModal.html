@@ -1,0 +1,51 @@
+<div class="modal-header">
+  <h3 class="modal-title">{{ type }}员工</h3>
+</div>
+<div class="modal-body">
+  <form name="salesForm" ng-submit="ok(salesForm)">
+    <div class="form-group">
+      <label for="">姓名</label>
+      <input name="name" type="text" class="form-control" placeholder="真是姓名" ng-model="sales.name" required></input>
+    </div>
+    <div class="form-group">
+      <label for="">帐号</label>
+      <input name="mobile" type="text" class="form-control" placeholder="手机号码" ng-model="sales.mobile" ng-disabled="type == '编辑'" required ng-pattern="/^\\d{11}$/"></input>
+      <alert type="danger" ng-if="salesForm.mobile.$error.pattern">手机号码必须为11位</alert>
+    </div>
+    <div class="form-group">
+      <label>组织</label>
+      <select name="org" class="form-control" ng-model="sales.org" required ng-options="org as org.name for org in orgs">
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="">角色</label>
+      <select name="role" class="form-control" ng-model="sales.role" required ng-options="role as role.name for role in roles">
+      </select>
+    </div>
+    <div class="form-group" ng-if="type == '添加'">
+      <label for="">密码</label>
+      <div class="radio">
+        <label>
+          <input type="radio" name="pwdRadios" value="random" ng-model="sales.pwdType" checked>
+          随机密码
+        </label>
+      </div>
+      <div class="radio">
+        <label>
+          <input type="radio" name="pwdRadios" value="set" ng-model="sales.pwdType">
+          设定密码
+        </label>
+      </div>
+      <label for="" ng-if="sales.pwdType == 'set'">密码</label>
+      <input name="password" type="password" class="form-control" placeholder="最少6位" ng-model="sales.password" ng-if="sales.pwdType == 'set'" required ng-minlength="6">
+      <alert type="danger" ng-if="salesForm.password.$error.minlength">密码至少6位数</alert>
+      <label for="" ng-if="sales.pwdType == 'set'">确认密码</label>
+      <input name="passwordConfirmation" type="password" class="form-control" placeholder="最少6位" ng-model="sales.passwordConfirmation" ng-if="sales.pwdType == 'set'" >
+      <alert type="danger" ng-if="sales.password && (salesForm.$invalid = (sales.password != sales.passwordConfirmation))">密码不匹配</alert>
+    </div>
+  </form>
+</div>
+<div class="modal-footer">
+  <button class="btn btn-primary" ng-click="ok(salesForm)" ng-disabled="salesForm.$invalid">Save</button>
+  <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+</div>

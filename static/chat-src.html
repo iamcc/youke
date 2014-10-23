@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>chat</title>
+    <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.min.css">
+    <style>
+      html, body {width: 100%;height: 100%;overflow: hidden;}
+      .media {padding: 5px; margin-top: 0;}
+      .media hr {margin-top: 5px; margin-bottom: 0;}
+      #input-box {position: fixed; bottom: 0;}
+      #chat-box {height: 100%; overflow-y: scroll;}
+      #msg-list {padding-bottom: 35px;}
+      #msg-list .media {position: relative;}
+      #msg-list .right {width: 0; height: 0; border-width: 10px; border-style: solid; border-color: transparent transparent transparent #eee; position: absolute; right: 59px; top: 15px; }
+      #msg-list .left {width: 0; height: 0; border-width: 10px; border-style: solid; border-color: transparent #eee transparent transparent; position: absolute; left: 59px; top: 15px; }
+      .msg-body {background-color: #eee; -webkit-border-radius: 10px; line-height: 20px; min-height: 40px; padding: 10px;}
+    </style>
+  </head>
+  <body>
+    <div id="user-list"></div>
+    <div id="chat-box" style="display: none;">
+      <ul id="msg-list" class="media-list"></ul>
+      <div id="input-box">
+        <div class="input-group">
+          <input id="txtMsg" type="text" class="form-control">
+          <span class="input-group-btn">
+            <button id="btnSend" class="btn btn-primary">Send</button>
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <div id="contactModal" class="modal fade" data-backdrop="static">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">xxx 向您索取名片</h4>
+          </div>
+          <div class="modal-body">
+            <form>
+              <div class="alert alert-danger errMsg" style="display: none;"></div>
+              <div class="form-group">
+                <input id="txtName" type="text" class="form-control" placeholder="姓名">
+              </div>
+              <div class="form-group">
+                <input id="txtMobile" type="text" class="form-control" placeholder="手机">
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button class="btn btn-primary btn-block submit">提交</button>
+            <button class="btn btn-danger btn-block reject" data-dismiss="modal">拒绝</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script id="user-list-tpl" type="text/x-handlebars-template">
+      <ul class="media-list">
+        {{#each this}}
+          <li class="media" id="sales{{_id}}" data-id="{{_id}}" data-name="{{name}}" {{#if disabled}}style="opacity: .5;"{{/if}}>
+            <a class="pull-left" href="#">
+              {{#if avatar}}
+                <img src="{{avatar}}" alt="{{name}}" class="media-object" width="64">
+              {{else}}
+                <img src="http://img0.bdstatic.com/img/image/shouye/mxlss-13661371802.jpg" alt="{{name}}" class="media-object" width="64">
+              {{/if}}
+            </a>
+            <div class="media-body">
+              <h4 class="media-heading">{{name}} <span class="badge pull-right"></span></h4>
+              <div>
+                <span style="width: 100px;">手机 : </span>
+                <span>{{mobile}}</span>
+              </div>
+            </div>
+            <div class="clearfix"></div>
+            <hr>
+          </li>
+        {{/each}}
+      </ul>
+    </script>
+
+    <script id="msg-tpl" type="text/x-handlebars-template">
+      <li class="media">
+        <a href="#" class="pull-{{#if isMe}}right{{else}}left{{/if}}">
+          {{#if avatar}}
+            <img src="{{avatar}}" alt="" class="media-object" width="64">
+          {{else}}
+            <img src="http://img0.bdstatic.com/img/image/shouye/mxlss-13661371802.jpg" alt="" class="media-object" width="64">
+          {{/if}}
+        </a>
+        <div class="media-body msg-body">
+          {{msg}}
+        </div>
+        <div class="{{#if isMe}}right{{else}}left{{/if}}"></div>
+      </li>
+    </script>
+
+    <script src="lib/jquery/jquery.min.js"></script>
+    <script src="lib/handlebars/handlebars.min.js"></script>
+    <script src="lib/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="lib/socket.io.js"></script>
+    <script src="lib/pomeloclient.js"></script>
+    <!-- inject:js -->
+    <!-- endinject -->
+  </body>
+</html>

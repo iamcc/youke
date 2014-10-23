@@ -1,0 +1,15 @@
+<div class="modal-header">
+  <h3 class="modal-title">客户交接</h3>
+</div>
+<div class="modal-body">
+  <form name="handoverForm">
+    <div class="form-group">
+      <label for="">被交接人</label>
+      <select class="form-control" ng-model="sales._id" ng-options="s._id as s.name group by s.org.name for s in saleses" required></select>
+    </div>
+  </form>
+</div>
+<div class="modal-footer">
+  <button class="btn btn-primary" ng-click="ok()" ng-disabled="handoverForm.$invalid">Save</button>
+  <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+</div>

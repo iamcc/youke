@@ -1,0 +1,15 @@
+<div class="modal-header">
+  <h3 class="modal-title">{{ type }}组织</h3>
+</div>
+<div class="modal-body">
+  <form>
+    <div class="form-group">
+      <label for="" ng-if="type=='添加'">父级组织 - {{ pOrg.text }}</label>
+      <input type="text" class="form-control" placeholder="新组织名称" autofocus="autofocus" ng-model="org.text">
+    </div>
+  </form>
+</div>
+<div class="modal-footer">
+  <button class="btn btn-primary" ng-click="ok()">Save</button>
+  <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+</div>

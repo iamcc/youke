@@ -1,0 +1,91 @@
+<div class="modal-header">
+  <h3 class="modal-title">{{ type }}角色</h3>
+</div>
+<div class="modal-body">
+  <form name="roleForm" class="form-horizontal">
+    <div class="form-group">
+      <label class="col-sm-2 control-label">角色名称</label>
+      <div class="col-sm-10">
+        <input type="text" class="form-control" ng-model="role.name" required>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-sm-2 control-label">备注</label>
+      <div class="col-sm-10">
+        <textarea class="form-control" ng-model="role.mark"></textarea>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-sm-2 control-label">权限</label>
+      <div class="col-sm-10">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <div class="checkbox">
+              <label>
+                <input type="checkbox" ng-model="role.permission.onlineSales"> 在线销售顾问
+              </label>
+            </div>
+          </div>
+          <div class="panel-body">
+            显示为销售顾问，客户可以通过微信进行在线咨询
+          </div>
+        </div>
+        
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <div class="checkbox">
+              <label>
+                <input type="checkbox" ng-model="role.permission.pickClient.checked"> 领取公海客户权限
+              </label>
+            </div>
+          </div>
+          <div class="panel-body" ng-if="role.permission.pickClient.checked">
+            <p>公海领取规则：</p>
+            <p>每天领取限制：<input type="number" style="width:50px;" ng-model="role.permission.pickClient.numPerDay"> 个客户。 （0为不限制）</p>
+            <hr style="border-style: dashed">
+            <p>客户保护时间规则：</p>
+            <p>当客户状态为 【未报备】 ,<input type="number" style="width:50px;" ng-model="role.permission.pickClient.wbbDays"> 天后,未更新状态，自动掉回公海。</p>
+            <p>当客户状态为 【已报备】 ,<input type="number" style="width:50px;" ng-model="role.permission.pickClient.ybbDays"> 天后,未更新状态，自动掉回公海。</p>
+            <p>当客户状态为 【跟进中】 ,<input type="number" style="width:50px;" ng-model="role.permission.pickClient.gjzDays"> 天后,未更新状态，自动掉回公海。</p>
+          </div>
+        </div>
+        
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <div class="checkbox">
+              <label>
+                <input type="checkbox" ng-model="role.permission.assignClient.checked"> 分配客户权限
+              </label>
+            </div>
+          </div>
+          <div class="panel-body" ng-if="role.permission.assignClient.checked">
+            <p>将公海或下属客户重新分配给指定的员工</p>
+            <div class="checkbox">
+              <label>
+                <input type="checkbox" ng-model="role.permission.assignClient.protect"> 分配后，重置保护时间。
+              </label>
+            </div>
+          </div>
+        </div>
+        
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <div class="checkbox">
+              <label>
+                <input type="checkbox" ng-model="role.permission.shareClient"> 共享客户权限
+              </label>
+            </div>
+          </div>
+          <div class="panel-body">
+            <p>将自己的客户共享给指定的员工</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </form>
+</div>
+<div class="modal-footer">
+  <button class="btn btn-primary" ng-click="save()" ng-disabled="roleForm.$invalid">Save</button>
+  <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+</div>

@@ -1,0 +1,45 @@
+<div class="modal-header">
+  <button class="close" ng-click="cancel()">&times;</button>
+  <h3 class="modal-title">角色管理</h3>
+</div>
+<div class="modal-body">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <button class="btn btn-primary btn-sm" ng-click="showRoleModal('创建')">创建角色</button>
+    </div>
+
+    <table class="table">
+      <thead>
+        <tr>
+          <th>角色</th>
+          <th>权限</th>
+          <th>成员</th>
+          <th>操作</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="role in g.roles">
+          <td>{{ role.name }}</td>
+          <td>
+            <p ng-if="role.permission.onlineSales">在线销售顾问</p>
+            <p ng-if="role.permission.pickClient.checked">领取公海客户</p>
+            <p ng-if="role.permission.assignClient.checked">分配客户权限</p>
+            <p ng-if="role.permission.assignClient.checked && role.permission.assignClient.protect">重置保护时间</p>
+            <p ng-if="role.permission.shareClient">共享客户权限</p>
+          </td>
+          <td>
+            <button class="btn btn-link" ng-repeat="sales in role.saleses" ng-click="showSalesModal('编辑', sales)" ng-disabled="sales.status == 0">
+              {{ sales.name }}
+              <span class="account-locked" ng-if="sales.status == 0">[已停用]</span>
+            </button>
+          </td>
+          <td>
+            <a href="javascript:;" ng-click="showSalesModal('添加', {role: role})">添加成员</a>
+            <a href="javascript:;" ng-click="editRole(role)">编辑角色</a>
+            <a href="javascript:;" ng-click="delRole($index, role)" ng-if="!role.saleses.length">删除角色</a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
