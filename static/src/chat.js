@@ -172,6 +172,7 @@
   var onAskContact = function(sid) {
     var sales = $('#sales'+sid);
     $('#contactModal .modal-title').html(sales.data('name')+' 向您索取名片');
+    $('#contactModal').data('sid', sid);
     $('#contactModal').modal('show');
   };
   var submitContact = function() {
@@ -180,7 +181,7 @@
     if(!(name && mobile)) return $('#contactModal .errMsg').html('请填写完整').show();
     pomelo.request(
       'chat.chatHandler.submitContact',
-      {uid: me._id, name: name, mobile: mobile},
+      {uid: $('#contactModal').data('sid'), name: name, mobile: mobile},
       function(data) {
         if(data.code === 200) {
           $('#contactModal').modal('hide');
@@ -195,7 +196,7 @@
   var rejectContact = function() {
     pomelo.request(
       'chat.chatHandler.rejectContact',
-      {uid: me._id},
+      {uid: $('#contactModal').data('sid')},
       function(data) {
         console.log(data);
       }

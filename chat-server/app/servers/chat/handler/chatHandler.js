@@ -66,11 +66,12 @@ Handler.prototype.askContact = function(msg, session, next) {
 };
 
 Handler.prototype.submitContact = function(msg, session, next) {
+  var self = this;
   var param = {uid: session.uid, name: msg.name, mobile: msg.mobile};
   var update = {Name: msg.name, Mobile: msg.mobile};
   Client.findByIdAndUpdate(session.uid, update, function(err) {
     if(err) return next(err, {code: Code.FAIL});
-    this.chatService.pushByUid(msg.uid, param, 'submitContact', function(err, code) {
+    self.chatService.pushByUid(msg.uid, param, 'submitContact', function(err, code) {
       if(err) console.error(err.stack);
       next(null, {code: code});
     });
@@ -81,5 +82,12 @@ Handler.prototype.rejectContact = function(msg, session, next) {
   this.chatService.pushByUid(msg.uid, session.uid, 'rejectContact', function(err, code) {
     if(err) console.error(err.stack);
     next(null, {code: code});
+  });
+};
+
+Handler.prototype.getClientInfo = function(msg, session, next) {
+  Client.findById(msg.uid, function(err, client) {
+    if(err) return next(err, {code: Code.FAIL});
+    next(null, {code: Code.OK, client: client});
   });
 };
